@@ -42,6 +42,7 @@
         transition: 300ms all;
         text-decoration: none;
         font-weight: bold;
+        margin-bottom: 5%;
     }
     nav ul li a:hover {
         background-color: cornflowerblue;
@@ -55,9 +56,10 @@
 <nav>
     <ul>
         <li><a href="{% url 'myapp:home' %}">Home</a></li>
-        <li><a href="{% url 'myapp:youtube' %}">YouTube Video Download</a></li><br><br>
+        <li><a href="{% url 'myapp:youtube' %}">YouTube Video Download</a></li><br>
         <li><a href="{% url 'myapp:chat' %}">ChatBot</a></li>
-        <li><a href="{% url 'myapp:currency_exchange' %}">Currency Exchange</a></li>
+        <li><a href="{% url 'myapp:currency_exchange' %}">Currency Exchange</a></li><br>
+        <li><a href="{% url 'todoapp:todoapp' %}">ToDo App</a></li>
 
 
     </ul>
