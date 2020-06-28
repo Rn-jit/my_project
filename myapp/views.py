@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
@@ -46,7 +47,7 @@ def currency_convert(request):
         To = request.POST['destination_country']
         amount = request.POST['amount']
         amount = float(amount)
-        url = urllib.request.urlopen('https://api.exchangeratesapi.io/latest?base='+From+'&symbols='+To)
+        url = urllib.request.urlopen('https://api.exchangeratesapi.io/latest?base=' + From + '&symbols=' + To)
         doc = json.loads(url.read().decode())
         rates = doc['rates']
         for key, value in rates.items():
@@ -58,3 +59,33 @@ def currency_convert(request):
         return render(request, 'currency_exchange.html', context)
     else:
         return render(request, 'currency_exchange.html', context)
+
+
+def weather(request):
+    context = {}
+    if request.method == 'POST':
+        city = request.POST['city']
+        city = city.title()
+        url = urllib.request.urlopen(
+            'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=74fba27056f2592c94d4686c83d48238&units=metric')
+        document = json.loads(url.read().decode())
+        weather = document['weather'][0]['main']
+        desr = document['weather'][0]['description']
+        icon = document['weather'][0]['icon']
+        temp = document['main']['temp']
+        wind = document['wind']['speed']
+        humidity = document['main']['humidity']
+        clouds = document['clouds']['all']
+        weather_info = {
+            'city': city,
+            'date': datetime.now(),
+            'weather': weather,
+            'desr': desr,
+            'icon': icon,
+            'temp': temp,
+            'wind': wind,
+            'humidity': humidity,
+            'clouds': clouds,
+        }
+        context['weather_info'] = weather_info
+    return render(request, 'weather.html', context)
