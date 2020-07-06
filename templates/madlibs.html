@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mad Libs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .data{
+            border:1px solid gray;
+            box-shadow: 5px 5px 8px #888888;
+            margin: 20px 180px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="margin-top: 5%;text-align: center">
+    <h2 style="margin-bottom: 5%; text-align: center"> MadLibs Game</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom:2%;">
+        <strong>Enter Your Name:</strong>
+        {{ forms.name }}
+        </div>
+        <table class="table table-borderless">
+  <tbody>
+    <tr>
+      <th scope="row">Enter Container:</th>
+      <td>{{ forms.container }}</td>
+      <th scope="row">Enter Adjective 1:</th>
+      <td>{{ forms.adj1 }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Enter Adjective 2:</th>
+      <td>{{ forms.adj2 }}</td>
+      <th scope="row">Enter Adjective 3:</th>
+      <td>{{ forms.adj3 }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Enter Noun:</th>
+      <td>{{ forms.noun }}</td>
+      <th scope="row">Enter Animal Name:</th>
+      <td>{{ forms.animal }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Enter Vegetable 1:</th>
+      <td>{{ forms.veg1 }}</td>
+      <th scope="row">Enter Vegetable 2:</th>
+      <td>{{ forms.veg2 }}</td>
+    </tr>
+  <tr>
+      <th scope="row">Enter Color Name:</th>
+      <td>{{ forms.color }}</td>
+      <td colspan="2"><button type="submit" class="btn btn-primary btn-lg btn-block" name="submit">Submit</button></td>
+    </tr>
+  </tbody>
+</table>
+
+    </form>
+    {% if data %}
+        <h2 style="color: red"> Hi, {{ data.name }}! Your Story</h2>
+        <div class="data">
+
+        <p style="text-align: justify">Make sure your lunch  <strong>{{ data.container}}</strong>  is filled with nutritious <strong>{{ data.adj1 }}</strong> food. Do not go to the <strong>{{ data.adj2 }}</strong>
+            food stand across the street from school. The hamburgers they serve are fried in <strong>{{ data.noun }}</strong> and are made of <strong>{{ data.animal }}</strong> meat.
+            So take a sandwich made of <strong>{{ data.veg1 }}</strong> or <strong>{{ data.veg2 }}</strong> its much healthier! Drink <strong>{{ data.color }}</strong>
+            milk instead of <strong>{{ data.adj3 }}</strong> colas.</p>
+
+        </div>
+        <p>
+            <a href="{% url 'myapp:madlib2' %}">
+                <button type="submit" class="btn btn-primary">Click Here to Play Other</button>
+            </a></p>
+
+    {% endif %}
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</html>

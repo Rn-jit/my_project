@@ -2,10 +2,13 @@ import os
 from datetime import datetime
 
 from django.contrib import messages
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
+from myapp.forms import MadlibForm, Madlib2Form
 from pytube import YouTube
 import json
 import urllib.request
+
+from myapp.models import Madlib, Madlib2
 
 
 def home(request):
@@ -77,7 +80,7 @@ def weather(request):
         humidity = document['main']['humidity']
         clouds = document['clouds']['all']
         weather_info = {
-            'city': city,
+            'city' : city,
             'date': datetime.now(),
             'weather': weather,
             'desr': desr,
@@ -89,3 +92,34 @@ def weather(request):
         }
         context['weather_info'] = weather_info
     return render(request, 'weather.html', context)
+
+
+def madlibs(request):
+    context = {}
+    forms = MadlibForm()
+    context['forms'] = forms
+
+    if request.method == 'POST':
+        forms = MadlibForm(request.POST or None)
+        if forms.is_valid():
+            forms.save()
+            data = Madlib.objects.all().last()
+            context['data'] = data
+            return render(request, 'madlibs.html', context)
+
+    return render(request, 'madlibs.html', context)
+
+
+def madlibs2(request):
+    context = {}
+    form = Madlib2Form()
+    context['form'] = form
+    if request.method == 'POST':
+        form = Madlib2Form(request.POST or None)
+        if form.is_valid():
+            form.save()
+            data = Madlib2.objects.all().last()
+            context['data'] = data
+            return render(request, 'madlib2.html', context)
+
+    return render(request, 'madlib2.html', context)

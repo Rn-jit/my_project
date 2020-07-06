@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mad Libs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .data {
+            border: 1px solid gray;
+            box-shadow: 5px 5px 8px #888888;
+            margin: 20px 180px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="margin-top: 5%;text-align: center">
+    <h2 style="margin-bottom: 5%; text-align: center"> MadLibs Second Game</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom:2%;">
+            <strong>Enter Your Name:</strong>
+            {{ form.name }}
+        </div>
+        <table class="table table-borderless">
+            <tbody>
+            <tr>
+                <th scope="row">Enter Adjective 1:</th>
+                <td>{{ form.adj1 }}</td>
+                <th scope="row">Enter Adjective 2:</th>
+                <td>{{ form.adj2 }}</td>
+            </tr>
+
+            <tr>
+                <th scope="row">Enter Part of Body:</th>
+                <td>{{ form.body_part }}</td>
+                <th scope="row">Enter Noun:</th>
+                <td>{{ form.noun }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Enter Animal Name:</th>
+                <td>{{ form.animal }}</td>
+                <th scope="row">Enter verb:</th>
+                <td>{{ form.verb }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit">Submit</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+    {% if data %}
+        <h2 style="color: red"> Hi, {{ data.name }}! Your Story</h2>
+        <div class="data">
+
+            <p style="text-align: justify">When we first met, You looked {{ data.adj1 }} and {{ data.adj2 }}. I couldn't
+                believe my {{ data.body_part }}! You smelled like {{ data.noun }} and walked as graceful as a {{ data.animal }}
+                . I couldn't wait to {{ data.verb }}to You.')</p>
+
+        </div>
+        <p>
+            <a href="{% url 'myapp:madlibs' %}">
+                <button type="submit" class="btn btn-primary">Back</button>
+            </a></p>
+
+    {% endif %}
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</html>

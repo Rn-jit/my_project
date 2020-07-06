@@ -10,5 +10,7 @@ urlpatterns = [
     path('youtube', views.youtube, name='youtube'),
     path('chat/', views.chat, name='chat'),
     path('currency_exchange/', views.currency_convert, name='currency_exchange'),
-    path('weather/', views.weather, name='weather')
+    path('weather/', views.weather, name='weather'),
+    path('madlibs/', views.madlibs, name='madlibs'),
+    path('madlibs/madlib2', views.madlibs2, name='madlib2')
 ]
